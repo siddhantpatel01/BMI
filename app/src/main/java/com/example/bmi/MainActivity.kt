@@ -13,124 +13,94 @@ import java.sql.ResultSet
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
+    private var isClear: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnCalculate.setOnClickListener(this)
+        if (isClear){
+            isClear = false
+            binding.btnCalculate.setText("CALCULATE")
 
-//       binding.btnCalculate.setOnClickListener {
-//           if (!weight.text.toString().equals("") && !height.text.toString().equals(" ")){
-//
-//               val height_of_human= (height.text.toString()).toDouble()
-//               val weight_of_human = (weight.text.toString()).toDouble()
-//
-//           }else{
-//               Toast.makeText(this@MainActivity,"",Toast.LENGTH_SHORT).show()
-//           }
-//
-//
-//       }
-
-
+        }
     }
 
 
     override fun onClick(view: View) {
         when (view?.id) {
-
             R.id.btn_calculate -> {
-                //Toast.makeText(this@MainActivity, "hello", Toast.LENGTH_LONG).show()
-                // Check if the height EditText and Weight EditText are not empty
+                if (isClear){
+                    isClear = false
+                    binding.btnCalculate.text = "Calculate"
+                    binding.BMI.setText("")
+                    binding.Output.setText("")
+                    binding.weight.text.clear()
+                    binding.height.text.clear()
+                    Toast.makeText(this, "Clear karo", Toast.LENGTH_SHORT).show()
+                }else{
+
+                    //Toast.makeText(this@MainActivity, "hello", Toast.LENGTH_LONG).show()
+
+                    // Check if the height EditText and Weight EditText are not empty
+                    if (binding.height.text.toString().isNotEmpty() && binding.weight.text.toString().isNotEmpty()) {
+                        if (!isClear){
+                            // initialize the variable
+                            isClear = true
+                            binding.btnCalculate.setText("Clear")
+                            val height = (binding.height.text.toString()).toDouble()
+                            val weight = (binding.weight.text.toString()).toDouble()
 
 
-                    if (binding.height.text.toString().isEmpty() && binding.weight.text.toString()
-                            .isNotEmpty()
-                    ) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "please enter the height",
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
-                    if (binding.weight.text.toString().isEmpty() && binding.height.text.toString()
-                            .isNotEmpty()
-                    ) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "please enter the weight",
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
-                    if (binding.height.text.toString()
-                            .isNotEmpty() && binding.weight.text.toString()
-                            .isNotEmpty()
-                    ) {
-                        // initialize the variable
-                        val height = (binding.height.text.toString()).toDouble()
-                        val weight = (binding.weight.text.toString()).toDouble()
-
-
-                        val Height_in_metre = height.toFloat() / 100
-                        val BMI = weight.toFloat() / (Height_in_metre * Height_in_metre)
+                            val Height_in_metre = height.toFloat() / 100
+                            val BMI = weight.toFloat() / (Height_in_metre * Height_in_metre)
 
 
 
-                        binding.BMI.text = "your bmi  is:-"
-                        binding.BMI.text = "${BMI}"
-                        // update the status text as per the bmi conditions
-                        if (BMI < 18.5) {
-                            // Toast.makeText(this@MainActivity, R.string.under_weight, Toast.LENGTH_LONG).show()
-                            binding.Output.text = resources.getString(R.string.under_weight)
+                            binding.BMI.text = "your bmi  is:-"
+                            binding.BMI.text = "${BMI}"
+                            // update the status text as per the bmi conditions
+                            if (BMI < 18.5) {
+                                // Toast.makeText(this@MainActivity, R.string.under_weight, Toast.LENGTH_LONG).show()
+                                binding.Output.text = resources.getString(R.string.under_weight)
 
-                        } else if (BMI >= 18.5 && BMI < 24.9) {
+                            } else if (BMI >= 18.5 && BMI < 24.9) {
 
-                            // Toast.makeText(this@MainActivity, R.string.Healthy, Toast.LENGTH_LONG).show()
-                            binding.Output.text = resources.getString(R.string.Healthy)
-                        } else if (BMI >= 24.9 && BMI < 30) {
-                            // Toast.makeText(this@MainActivity, R.string.over_weight, Toast.LENGTH_LONG).show()
-                            binding.Output.text = resources.getString(R.string.over_weight)
-                        } else {
-                            //Toast.makeText(this@MainActivity, R.string.Suffering_from_Obesity, Toast.LENGTH_LONG).show()
-                            binding.Output.text =
-                                resources.getString(R.string.Suffering_from_Obesity)
+                                // Toast.makeText(this@MainActivity, R.string.Healthy, Toast.LENGTH_LONG).show()
+                                binding.Output.text = resources.getString(R.string.Healthy)
+                            } else if (BMI >= 24.9 && BMI < 30) {
+                                // Toast.makeText(this@MainActivity, R.string.over_weight, Toast.LENGTH_LONG).show()
+                                binding.Output.text = resources.getString(R.string.over_weight)
+                            } else {
+                                //Toast.makeText(this@MainActivity, R.string.Suffering_from_Obesity, Toast.LENGTH_LONG).show()
+                                binding.Output.text = resources.getString(R.string.Suffering_from_Obesity)
 
+                            }
                         }
 
-
-
-                    } else if (binding.height.text.toString().isEmpty() && binding.weight.text.toString().isEmpty()) {
-                        Toast.makeText(this@MainActivity, "please enter height & weight ", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "please enter height & weight ",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
 
                 }
 
 
-//
-//                    if (binding.BMI.text.toString().isNotEmpty() && binding.Output.text.toString().isNotEmpty()) {
-//                        binding.btnCalculate.setText("Clear")
-//                        binding.BMI.setText("")
-//                        binding.Output.setText("")
-//                        binding.height.text.clear()
-//                        binding.weight.text.clear()
-//
-//                    }
-//
-//
-//                }
-
-
+            }
 
         }
-
-
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+
 }
 
 
