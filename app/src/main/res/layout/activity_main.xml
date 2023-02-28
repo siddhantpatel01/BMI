@@ -33,9 +33,9 @@
         android:id="@+id/BMI"
         android:layout_below="@+id/weight"
         android:layout_width="match_parent"
-        android:text="Your BMI is "
+
         android:layout_height="50dp"
-        android:hint="OUTPUT"
+        android:hint="Your BMI is "
         android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:textAlignment="center"
@@ -51,7 +51,7 @@
         android:id="@+id/Output"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="health status"
+        android:hint="Health Status"
         android:textStyle="bold"
         android:layout_below="@id/BMI"
         android:layout_marginTop="15dp"
@@ -76,6 +76,7 @@
         android:textColor="@color/white"
         android:background="@drawable/rounded_shape_hover"
         />
+
 
 
 </RelativeLayout>
