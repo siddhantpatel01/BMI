@@ -16,7 +16,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="25dp"
         android:inputType="numberDecimal"
-        android:hint="enter height"
+        android:hint="enter height in centimeters"
         />
     <EditText
         android:id="@+id/weight"
@@ -27,15 +27,16 @@
         android:inputType="numberDecimal"
         android:layout_below="@id/height"
         android:layout_marginTop="25dp"
-        android:hint="enter weight"
+        android:hint="enter weight in kilograms"
         />
     <TextView
-        android:id="@+id/Output"
+        android:id="@+id/BMI"
+        android:layout_below="@+id/weight"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:text="Your BMI is "
+        android:layout_height="50dp"
         android:hint="OUTPUT"
         android:textStyle="bold"
-        android:layout_below="@id/weight"
         android:layout_marginTop="25dp"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -46,7 +47,25 @@
 
 
         />
+    <TextView
+        android:id="@+id/Output"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="health status"
+        android:textStyle="bold"
+        android:layout_below="@id/BMI"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_shape"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textIsSelectable="true"
+
+
+        />
     <Button
+        android:id="@+id/btn_calculate"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
         android:layout_width="match_parent"

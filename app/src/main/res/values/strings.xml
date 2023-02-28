@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BMI</string>
+    <string name="over_weight">Over Weight</string>
+    <string name="under_weight">Under Weight</string>
+    <string name="Healthy">Healthy</string>
+    <string name="Suffering_from_Obesity">Suffering</string>
+
 </resources>
