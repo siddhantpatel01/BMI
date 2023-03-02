@@ -31,6 +31,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view?.id) {
             R.id.btn_calculate -> {
+
+                if(binding.height.text.isEmpty() && binding.weight.text.isEmpty()  ){
+                    Toast.makeText(this,"Enter the height & Weight",Toast.LENGTH_SHORT).show()
+                }else if(binding.weight.text.isEmpty() ){
+                    Toast.makeText(this,"Enter the weight",Toast.LENGTH_SHORT).show()
+                }else if (binding.height.text.isEmpty() ) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "please enter height  ",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
                 if (isClear){
                     isClear = false
                     binding.btnCalculate.text = "Calculate"
@@ -45,46 +58,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                     // Check if the height EditText and Weight EditText are not empty
                     if (binding.height.text.toString().isNotEmpty() && binding.weight.text.toString().isNotEmpty()) {
-                        if (!isClear){
+                        if (!isClear) {
                             // initialize the variable
                             isClear = true
                             binding.btnCalculate.setText("Clear")
                             val height = (binding.height.text.toString()).toDouble()
                             val weight = (binding.weight.text.toString()).toDouble()
 
+                            if (height == 0.0 || weight==0.0) {
+                                Toast.makeText(this,"Invalid height or weight ",Toast.LENGTH_SHORT).show()
 
-                            val Height_in_metre = height.toFloat() / 100
-                            val BMI = weight.toFloat() / (Height_in_metre * Height_in_metre)
-
-
-
-                            binding.BMI.text = "your bmi  is:-"
-                            binding.BMI.text = "${BMI}"
-                            // update the status text as per the bmi conditions
-                            if (BMI < 18.5) {
-                                // Toast.makeText(this@MainActivity, R.string.under_weight, Toast.LENGTH_LONG).show()
-                                binding.Output.text = resources.getString(R.string.under_weight)
-
-                            } else if (BMI >= 18.5 && BMI < 24.9) {
-
-                                // Toast.makeText(this@MainActivity, R.string.Healthy, Toast.LENGTH_LONG).show()
-                                binding.Output.text = resources.getString(R.string.Healthy)
-                            } else if (BMI >= 24.9 && BMI < 30) {
-                                // Toast.makeText(this@MainActivity, R.string.over_weight, Toast.LENGTH_LONG).show()
-                                binding.Output.text = resources.getString(R.string.over_weight)
                             } else {
-                                //Toast.makeText(this@MainActivity, R.string.Suffering_from_Obesity, Toast.LENGTH_LONG).show()
-                                binding.Output.text = resources.getString(R.string.Suffering_from_Obesity)
+                                val Height_in_metre = height.toFloat() / 100
+                                val BMI = weight.toFloat() / (Height_in_metre * Height_in_metre)
 
+
+
+                                binding.BMI.text = "Your BMI is :-  ${BMI} "
+                                // update the status text as per the bmi conditions
+                                if (BMI < 18.5) {
+                                    // Toast.makeText(this@MainActivity, R.string.under_weight, Toast.LENGTH_LONG).show()
+                                    binding.Output.text = resources.getString(R.string.under_weight)
+
+                                } else if (BMI >= 18.5 && BMI < 24.9) {
+
+                                    // Toast.makeText(this@MainActivity, R.string.Healthy, Toast.LENGTH_LONG).show()
+                                    binding.Output.text = resources.getString(R.string.Healthy)
+                                } else if (BMI >= 24.9 && BMI < 30) {
+                                    // Toast.makeText(this@MainActivity, R.string.over_weight, Toast.LENGTH_LONG).show()
+                                    binding.Output.text = resources.getString(R.string.over_weight)
+                                } else {
+                                    //Toast.makeText(this@MainActivity, R.string.Suffering_from_Obesity, Toast.LENGTH_LONG).show()
+                                    binding.Output.text = resources.getString(R.string.Suffering_from_Obesity)
+
+                                }
                             }
                         }
 
-                    } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "please enter height & weight ",
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
 
 
